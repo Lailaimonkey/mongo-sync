@@ -5,5 +5,8 @@ import (
 )
 
 func main() {
+
+	mongo.Find()
+
 	mongo.Sync()
 }

@@ -163,3 +163,20 @@ func syncInsert(slaveClient *mongo.Database, stream StreamObject) {
 		log.Println("插入失败：", err)
 	}
 }
+
+func Find() {
+
+	//获得数据源
+	db := InitMasterDatabase()
+
+	//获得两周年数据源
+	year := db.user
+
+	id, _ := primitive.ObjectIDFromHex("5f65cc9e6d336272804faf0f")
+	filter := bson.M{
+		"_id": id,
+	}
+
+	var user User
+	year.FindOne(context.TODO(), filter, &user)
+}
