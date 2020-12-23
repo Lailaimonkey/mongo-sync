@@ -10,18 +10,6 @@ import (
 	"time"
 )
 
-type User struct {
-	Nickname   string
-	ClientType int
-	Fictitious bool
-}
-
-type UserAccount struct {
-	UserId    string
-	LoginName string
-	Type      int
-}
-
 type StreamObject struct {
 	Id                *WatchId `bson:"_id"`
 	OperationType     string
@@ -52,8 +40,6 @@ var resumeToken bson.Raw
 func Sync() {
 	go syncMaster()
 
-	go syncLive()
-
 	for {
 		time.Sleep(2 * time.Second)
 	}
@@ -63,14 +49,6 @@ func syncMaster() {
 	for {
 		//获得主库数据连接
 		client := initMasterDBClient()
-		watch(client)
-	}
-}
-
-func syncLive() {
-	for {
-		//获得主库数据连接
-		client := initLiveDBClient()
 		watch(client)
 	}
 }
